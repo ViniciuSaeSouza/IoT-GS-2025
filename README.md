@@ -144,3 +144,6 @@ Em caso de dúvidas, melhorias ou sugestões, entre em contato com a equipe do p
 * **Vinícius Saes de Souza** — RM 554456
 
 ---
+
+> “Faça o teu melhor, na condição que você tem, enquanto você não tem condições melhores, para fazer melhor ainda.” — Mario Sergio Cortella
+
