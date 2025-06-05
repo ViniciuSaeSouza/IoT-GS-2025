@@ -2,7 +2,7 @@
 
 ## 💧 +Água: Sistema IoT e Dashboard para Gestão de Água
 
-O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **dashboard interativo** em **Node-RED**, voltada para o monitoramento inteligente do consumo e armazenamento de água em condomínios residenciais. A proposta busca incentivar o uso consciente e promover a gestão eficiente dos recursos hídricos.
+O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **dashboard interativo** em **Node-RED**, voltada para o monitoramento inteligente do consumo e armazenamento de água em condomínios residenciais. A proposta busca incentivar o uso consciente e promover a gestão eficiente dos recursos hídricos, especialmente em cenários de **eventos climáticos extremos**, como **enchentes** e **períodos de seca**, onde o controle preciso da água se torna ainda mais essencial.
 
 ---
 
@@ -144,6 +144,5 @@ Em caso de dúvidas, melhorias ou sugestões, entre em contato com a equipe do p
 * **Vinícius Saes de Souza** — RM 554456
 
 ---
-
 
 > “Faça o teu melhor, na condição que você tem, enquanto você não tem condições melhores, para fazer melhor ainda.” — Mario Sergio Cortella
