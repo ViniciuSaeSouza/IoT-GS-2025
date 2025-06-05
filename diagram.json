@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "author": "Vinícius Saes de Souza",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": -31.6,
+      "left": -23.44,
+      "rotate": 180,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot1",
+      "top": -67.6,
+      "left": 124.8,
+      "attrs": { "label": "pH" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot2",
+      "top": -67.6,
+      "left": 220.8,
+      "attrs": { "label": "Turbidez" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot3",
+      "top": -67.6,
+      "left": 316.8,
+      "attrs": { "label": "Nível" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text1",
+      "top": -105.6,
+      "left": 105.6,
+      "attrs": { "text": "Nível" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text2",
+      "top": -105.6,
+      "left": 201.6,
+      "attrs": { "text": "Turbidez" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text3",
+      "top": -105.6,
+      "left": 316.8,
+      "attrs": { "text": "PH" }
+    }
+  ],
+  "connections": [
+    [ "esp:GND.1", "pot1:GND", "black", [] ],
+    [ "esp:3V3", "pot1:VCC", "red", [] ],
+    [ "pot1:SIG", "esp:GPIO34", "green", [] ],
+    [ "esp:3V3", "pot2:VCC", "red", [] ],
+    [ "pot2:SIG", "esp:GPIO35", "blue", [] ],
+    [ "esp:GND.1", "pot3:GND", "black", [] ],
+    [ "esp:3V3", "pot3:VCC", "red", [] ],
+    [ "pot3:SIG", "esp:GPIO32", "yellow", [] ],
+    [ "esp:D32", "pot1:SIG", "green", [ "h0" ] ],
+    [ "esp:D35", "pot2:SIG", "green", [ "h0" ] ],
+    [ "esp:D34", "pot3:SIG", "green", [ "h0" ] ],
+    [ "esp:32", "pot1:SIG", "green", [ "h0" ] ],
+    [ "pot2:SIG", "esp:35", "green", [ "v0" ] ],
+    [ "esp:34", "pot3:SIG", "green", [ "h0" ] ],
+    [ "pot2:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ]
+  ],
+  "dependencies": {}
+}
