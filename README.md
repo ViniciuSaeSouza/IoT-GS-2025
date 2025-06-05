@@ -2,7 +2,7 @@
 
 ## 💧 +Água: Sistema IoT e Dashboard para Gestão de Água
 
-O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **dashboard interativo** em **Node-RED**, voltada para o monitoramento inteligente do consumo e armazenamento de água em condomínios residenciais. A proposta busca incentivar o uso consciente e promover a gestão eficiente dos recursos hídricos.
+O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **dashboard interativo** em **Node-RED**, voltada para o monitoramento inteligente do consumo e armazenamento de água em condomínios residenciais. A proposta busca incentivar o uso consciente e promover a gestão eficiente dos recursos hídricos, especialmente em cenários de **eventos climáticos extremos**, como **enchentes** e **períodos de seca**, onde o controle preciso da água se torna ainda mais essencial.
 
 ---
 
@@ -124,6 +124,30 @@ O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **da
 * Atualização dos indicadores visuais
 * Exibição em tempo real no painel web
 * Geração de gráficos e histórico de consumo
+
+---
+
+### 🧭 Fluxo Node-RED
+- O fluxo é composto por:
+  - `mqtt in`: recebe do tópico `LEITURA_RESERVATORIO`
+  - `json`: converte a mensagem para objeto
+  - `function`: lógica de tratamento e separação de variáveis
+  - `ui_chart`, `ui_gauge`, `ui_text`: exibem os dados
+- Toda alteração no valor de pH, turbidez e nível gera atualização no dashboard.
+
+## 🖼️ Imagens Ilustrativas
+
+### 🧪 Esquema da simulação no Wokwi
+![image](https://github.com/user-attachments/assets/171053dd-26a4-476b-ad0b-fbc2144636fa)
+
+
+### 🔁 Fluxo de dados no Node-RED
+![image](https://github.com/user-attachments/assets/e1b42ec9-c5d5-40b8-8b89-2b0f48bc294d)
+
+ 
+### 🖥️ Exemplo do Dashboard em execução
+![image](https://github.com/user-attachments/assets/8b2c797a-d644-4ebd-8a57-01d073de7347)
+![image](https://github.com/user-attachments/assets/d4b06ee9-db07-4722-8982-4904c8a909b6)
 
 ---
 
