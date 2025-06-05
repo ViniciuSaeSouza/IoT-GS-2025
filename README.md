@@ -10,9 +10,10 @@ O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **da
 
 ### 🔌 IoT
 
-* **Monitoramento em tempo real**: Coleta contínua dos níveis de água por sensores instalados em reservatórios.
+* **Monitoramento em tempo real**: Coleta dos dados dos sensores simulados (potenciômetros) que representam os níveis de água, pH e turbidez.
 * **Conectividade via MQTT e Wi-Fi**: Comunicação leve e eficiente entre sensores e o sistema.
 * **Sincronização NTP**: Garantia de precisão nos registros com sincronização horária automática.
+* **Publicação de dados**: Envio das leituras para o tópico MQTT `LEITURA_RESERVATORIO` no broker público HiveMQ.
 
 ### 📊 Dashboard (Node-RED)
 
@@ -27,14 +28,18 @@ O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **da
 
 ### 🔧 IoT
 
-* **C++ (Arduino Framework)**: Programação embarcada dos dispositivos.
-* **ESP8266 / ESP32**: Microcontroladores para aquisição e envio de dados.
+* **ESP32**: Microcontrolador utilizado para coleta e envio de dados.
+* **C++ (Arduino Framework)**: Programação embarcada do dispositivo.
 * **MQTT**: Protocolo leve e rápido para comunicação entre dispositivos.
+* **Bibliotecas**:
+
+  * `PubSubClient`: Para comunicação MQTT.
+  * `ArduinoJson`: Para manipulação de mensagens JSON.
 
 ### 🧠 Dashboard
 
 * **Node-RED**: Plataforma de baixo código para criação do painel interativo.
-* **MQTT Broker (público ou local)**: Responsável por intermediar a troca de mensagens entre dispositivos e o dashboard.
+* **Broker MQTT público**: HiveMQ (`broker.hivemq.com`, porta `1883`).
 
 ---
 
@@ -44,10 +49,11 @@ O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **da
 .
 ├── IOT/maisAguaV1/         # Código dos dispositivos IoT (ESP)
 │   ├── src/                # main.cpp e lógicas de leitura/envio
-│   └── include/            # Arquivo de configuração (Wi-Fi, MQTT, etc.)
+│   ├── include/            # config.h com dados de Wi-Fi e MQTT
+│   └── diagram.json        # Diagrama de simulação do Wokwi
 │
-├── NodeRED/                # Fluxo do Node-RED (.json)
-│   └── dashboard-flux.json
+├── IOT/maisAguaV1/node-red/flows/  # Fluxos do Node-RED
+│   └── flows.json
 │
 └── Documentos/             # Especificações, atas e relatórios do projeto
 ```
@@ -59,16 +65,17 @@ O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **da
 ### 🔧 IoT
 
 1. Acesse `IOT/maisAguaV1/src/main.cpp`.
-2. Edite as configurações em `include/config.h` com:
+2. Edite `include/config.h` com:
 
-   * Nome da rede Wi-Fi
-   * Senha da rede
-   * Endereço do broker MQTT
-   * Tópico e ID do dispositivo
-3. Compile e envie o código para o ESP32/ESP8266 usando:
+   ```cpp
+   const char *SSID = "SEU_SSID";
+   const char *PASSWORD = "SUA_SENHA";
+   ```
+3. Compile e envie o código para o ESP32 usando:
 
    * **PlatformIO** (VS Code) ou
    * **Arduino IDE**
+4. Abra o monitor serial para verificar as mensagens publicadas no broker MQTT.
 
 ### 🌐 Dashboard Node-RED
 
@@ -83,40 +90,48 @@ O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **da
    node-red
    ```
 3. Acesse o editor via navegador: [http://localhost:1880](http://localhost:1880)
-4. Importe o fluxo `dashboard-flux.json` localizado em `NodeRED/`.
+4. Importe o fluxo `flows.json` localizado em `IOT/maisAguaV1/node-red/flows/`
 5. Acesse o dashboard final em: [http://localhost:1880/ui](http://localhost:1880/ui)
 
 ---
 
 ## 📖 Documentação Técnica
 
-### 📡 Comunicação MQTT
+### 📡 Sensores Simulados
 
-* **Tópico de publicação**: Exemplo — `maisagua/reservatorio01/status`
-* **Formato da mensagem (JSON)**:
+* **pH**: Potenciômetro conectado ao GPIO34.
+* **Turbidez**: Potenciômetro conectado ao GPIO35.
+* **Nível de água**: Potenciômetro conectado ao GPIO32.
+
+### 📢 Comunicação MQTT
+
+* **Tópico de publicação**: `LEITURA_RESERVATORIO`
+* **Formato JSON da mensagem**:
 
   ```json
   {
     "deviceId": "reservatorio01",
-    "nivelPorcentagem": 72,
+    "nivel": 78,
+    "ph": 6.8,
+    "turbidez": 120,
     "timestamp": "2025-06-05T15:30:00Z"
   }
   ```
 
 ### 🔔 Fluxo de Dados no Dashboard
 
-* Recepção via MQTT no Node-RED
+* Recebimento de dados via MQTT
 * Atualização dos indicadores visuais
-* Armazenamento opcional em banco de dados (extensível)
-* Exibição de gráficos e históricos com base nos dados recebidos
+* Exibição em tempo real no painel web
+* Geração de gráficos e histórico de consumo
 
 ---
 
 ## 📌 Notas Importantes
 
-* Certifique-se de que o **broker MQTT está ativo** antes de ligar os dispositivos e iniciar o dashboard.
-* Verifique a **calibração dos sensores** para garantir dados confiáveis.
-* O código permite **expansão para múltiplos reservatórios**, bastando alterar os `deviceId` e tópicos MQTT.
+* Certifique-se de que o **broker MQTT (HiveMQ)** está ativo antes de ligar os dispositivos e iniciar o dashboard.
+* Verifique a **calibração dos sensores simulados** para garantir dados confiáveis.
+* O código é adaptável para **vários reservatórios** simultâneos, utilizando IDs e tópicos distintos.
 
 ---
 
@@ -129,5 +144,6 @@ Em caso de dúvidas, melhorias ou sugestões, entre em contato com a equipe do p
 * **Vinícius Saes de Souza** — RM 554456
 
 ---
+
 
 > “Faça o teu melhor, na condição que você tem, enquanto você não tem condições melhores, para fazer melhor ainda.” — Mario Sergio Cortella
