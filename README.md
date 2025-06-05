@@ -127,6 +127,15 @@ O projeto **+Água** é uma solução integrada com tecnologia **IoT** e um **da
 
 ---
 
+### 🧭 Fluxo Node-RED
+- O fluxo é composto por:
+  - `mqtt in`: recebe do tópico `LEITURA_RESERVATORIO`
+  - `json`: converte a mensagem para objeto
+  - `function`: lógica de tratamento e separação de variáveis
+  - `ui_chart`, `ui_gauge`, `ui_text`: exibem os dados
+- Toda alteração no valor de pH, turbidez e nível gera atualização no dashboard.
+---
+
 ## 📌 Notas Importantes
 
 * Certifique-se de que o **broker MQTT (HiveMQ)** está ativo antes de ligar os dispositivos e iniciar o dashboard.
