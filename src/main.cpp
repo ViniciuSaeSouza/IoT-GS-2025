@@ -130,7 +130,8 @@ void loop()
   struct tm timeinfo;
   char timeString[25];
   if (getLocalTime(&timeinfo)) {
-    strftime(timeString, sizeof(timeString), "%Y-%m-%dT%H:%M:%S", &timeinfo);
+    // Formata a data e hora com os 3 segundos extras em UTC
+    strftime(timeString, sizeof(timeString), "%Y-%m-%dT%H:%M:%SZ", &timeinfo);
   } else {
     strcpy(timeString, "failed");
   }
@@ -160,5 +161,5 @@ void loop()
 
   // publishBufferMqtt();
 
-  delay(10000); // Aguarda 10 segundos para próxima leitura
+  delay(5000); // Aguarda 10 segundos para próxima leitura
 }
